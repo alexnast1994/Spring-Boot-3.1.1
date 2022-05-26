@@ -1,9 +1,7 @@
 package web.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.*;
-import org.springframework.core.Ordered;
 import org.springframework.core.env.Environment;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -14,10 +12,8 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
@@ -29,7 +25,7 @@ import java.util.Properties;
 @EnableWebMvc
 @PropertySource("classpath:db.properties")
 @EnableTransactionManagement
-@ComponentScans({@ComponentScan("web.controller"),@ComponentScan("web.dao"),@ComponentScan("web.service"), @ComponentScan("web.model")})
+@ComponentScans({@ComponentScan("web.controller"), @ComponentScan("web.dao"), @ComponentScan("web.service"), @ComponentScan("web.model")})
 public class WebConfig implements WebMvcConfigurer {
 
     private Environment environment;
@@ -54,12 +50,12 @@ public class WebConfig implements WebMvcConfigurer {
     }
 
     @Bean
-    public DataSource dataSource(){
+    public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(environment.getRequiredProperty("db.driver"));
         dataSource.setUrl(environment.getProperty("db.url"));
-        dataSource.setUsername(environment.getRequiredProperty("db.username") );
-        dataSource.setPassword(environment.getRequiredProperty("db.password") );
+        dataSource.setUsername(environment.getRequiredProperty("db.username"));
+        dataSource.setPassword(environment.getRequiredProperty("db.password"));
         return dataSource;
     }
 

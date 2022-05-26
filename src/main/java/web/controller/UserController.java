@@ -4,13 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import web.model.User;
 import web.service.UserService;
 
-import java.util.List;
-
-import static java.util.Objects.nonNull;
+import static java.util.Objects.isNull;
 
 @Controller
 public class UserController {
@@ -34,10 +35,9 @@ public class UserController {
         return "userForms";
     }
 
-    //@PostMapping(value = "/save")
-    @PostMapping()
+    @PostMapping(value = "/save")
     public String saveUser(@ModelAttribute("user") User user) {
-        if (nonNull(user.getId())) {
+        if (isNull(user.getId())) {
             userService.add(user);
         } else {
             userService.updateUser(user);
