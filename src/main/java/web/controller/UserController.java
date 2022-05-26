@@ -12,8 +12,9 @@ import web.model.User;
 import web.service.UserService;
 
 import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 
-@Controller
+@Controller(value = "/users")
 public class UserController {
 
     private final UserService userService;
@@ -32,16 +33,17 @@ public class UserController {
     @GetMapping(value = "/new")
     public String newUser(ModelMap model) {
         model.addAttribute("user", new User());
-        return "userForms";
+        return "createUser";
     }
 
     @PostMapping(value = "/save")
     public String saveUser(@ModelAttribute("user") User user) {
         if (isNull(user.getId())) {
             userService.add(user);
-        } else {
-            userService.updateUser(user);
         }
+        //else {
+        //    userService.updateUser(user);
+        // }
         return "redirect:/";
     }
 
@@ -58,4 +60,11 @@ public class UserController {
         return "redirect:/";
     }
 
+    @PostMapping(value = "/update")
+    public String update(@ModelAttribute("user") User user) {
+        if (nonNull(user.getId())) {
+            userService.updateUser(user);
+        }
+        return "redirect:/";
+    }
 }
