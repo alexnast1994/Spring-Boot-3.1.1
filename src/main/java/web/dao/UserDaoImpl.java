@@ -10,7 +10,7 @@ import java.util.List;
 import static java.util.Objects.nonNull;
 
 @Repository
-public class UserDaoImpl implements UserDao{
+public class UserDaoImpl implements UserDao {
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -23,9 +23,9 @@ public class UserDaoImpl implements UserDao{
     }
 
     @Override
-    public void removeUserById(User user) {
-        if (nonNull(user)){
-            entityManager.remove(user);
+    public void removeUserById(Long userId) {
+        if (userId != null) {
+            entityManager.createQuery("DELETE FROM User u WHERE u.id=:userId").setParameter("userId", userId).executeUpdate();
         }
     }
 
