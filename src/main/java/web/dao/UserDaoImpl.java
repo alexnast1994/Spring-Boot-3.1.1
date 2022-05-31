@@ -7,8 +7,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
-import static java.util.Objects.nonNull;
-
 @Repository
 public class UserDaoImpl implements UserDao {
     @PersistenceContext
@@ -17,16 +15,12 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void add(User user) {
-        if (nonNull(user)) {
-            entityManager.persist(user);
-        }
+        entityManager.persist(user);
     }
 
     @Override
     public void removeUserById(Long userId) {
-        if (userId != null) {
-            entityManager.createQuery("DELETE FROM User u WHERE u.id=:userId").setParameter("userId", userId).executeUpdate();
-        }
+        entityManager.createQuery("DELETE FROM User u WHERE u.id=:userId").setParameter("userId", userId).executeUpdate();
     }
 
     @Override
@@ -37,17 +31,12 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User getUserById(Long id) {
-        if (nonNull(id)) {
-            return entityManager.find(User.class, id);
-        }
-        return new User();
+        return entityManager.find(User.class, id);
     }
 
 
     @Override
     public void updateUser(User user) {
-        if (nonNull(user)) {
-            entityManager.merge(user);
-        }
+        entityManager.merge(user);
     }
 }
